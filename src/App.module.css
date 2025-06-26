@@ -1,0 +1,25 @@
+body {
+    background: #242424;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo {
+    color: white;
+    font-size: 20px;
+    border: 1px solid whitesmoke;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.todo:hover {
+    transition: all 0.5s;
+    background-color: cadetblue;
+}
