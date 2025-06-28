@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TodoWithJsonServer.module.css";
+import { Link } from "react-router-dom";
 
 const TodoWithJsonServer = () => {
     const [post, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isCraetinPost, setIsCraetingPost] = useState(false);
-    const [isUpdatePost, setIsUpdatePost] = useState(false);
     const [search, setSearch] = useState("");
     const [isSortedAsc, setIsSortedAsc] = useState(true);
     const [namePost, setNamePost] = useState("");
@@ -63,35 +63,6 @@ const TodoWithJsonServer = () => {
         setNamePost("");
     };
 
-    const handleUpdatePost = (id) => {
-        setIsUpdatePost(true);
-
-        fetch(`http://localhost:3000/posts/${id}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json;charset=utf-8" },
-            body: JSON.stringify({
-                price: 3500,
-            }),
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                setPosts((prev) =>
-                    prev.map((item) => (item.id === json.id ? json : item))
-                );
-            })
-            .finally(() => setIsUpdatePost(false));
-    };
-
-    const handleDeletePost = (id) => {
-        fetch(`http://localhost:3000/posts/${id}`, {
-            method: "DELETE",
-        })
-            .then((response) => response.json())
-            .then(() => {
-                setPosts((prev) => prev.filter((item) => item.id !== id));
-            });
-    };
-
     return (
         <div className={styles.container}>
             <input
@@ -114,17 +85,13 @@ const TodoWithJsonServer = () => {
                 filteredPosts().map((item) => (
                     <div key={item.id} className={styles.posts}>
                         <div className={styles.post}>
-                            {item.name} - {item.price}
+                            <Link
+                                className={styles.link}
+                                to={`/post/${item.id}`}
+                            >
+                                {item.name}
+                            </Link>
                         </div>
-                        <button
-                            disabled={isUpdatePost}
-                            onClick={() => handleUpdatePost(item.id)}
-                        >
-                            Update post
-                        </button>
-                        <button onClick={() => handleDeletePost(item.id)}>
-                            Delete post
-                        </button>
                     </div>
                 ))
             )}

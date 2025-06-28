@@ -1,25 +1,16 @@
-import { useState, useEffect } from "react";
-import styles from "./App.module.css";
+import { Route, Routes } from "react-router-dom";
+import TodoWithJsonServer from "./TodoWithJsonServer";
+import TodoDetail from "./TodoDetail";
+import NotFound from "./NotFound";
 
-function App() {
-    const [todods, setTodos] = useState([]);
-
-    useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/todos/")
-            .then((response) => response.json())
-            .then((json) => setTodos(json));
-    }, []);
-
+const App = () => {
     return (
-        <div className={styles.container}>
-            <h1 style={{ color: "white" }}>Todos Title</h1>
-            {todods.map(({ title, id }) => (
-                <div className={styles.todo} key={id}>
-                    {title}
-                </div>
-            ))}
-        </div>
+        <Routes>
+            <Route path="/" element={<TodoWithJsonServer />} />
+            <Route path="/post/:id" element={<TodoDetail />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     );
-}
+};
 
 export default App;

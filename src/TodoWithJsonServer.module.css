@@ -14,15 +14,23 @@
 }
 
 .post {
-    color: white;
     font-size: 20px;
-    border: 1px solid whitesmoke;
+    border: 1px solid gray;
     padding: 10px;
     border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
     cursor: pointer;
 }
 
 .post:hover {
     transition: all 0.5s;
     background-color: cadetblue;
+}
+
+.link {
+    text-decoration: none;
 }
